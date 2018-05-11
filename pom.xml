@@ -143,6 +143,49 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>buildnumber-maven-plugin</artifactId>
+						<version>1.4</version>
+						<configuration>
+							<doCheck>false</doCheck>
+							<doUpdate>false</doUpdate>
+							<addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+							<format>{0,date,yyyy-MM-dd HH:mm:ss Z}</format>
+							<items>
+								<item>timestamp</item>
+							</items>
+							<buildNumberPropertyName>buildDateTime</buildNumberPropertyName>
+							<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+							<revisionOnScmFailure>0</revisionOnScmFailure>
+						</configuration>
+						<executions>
+							<execution>
+								<id>create-build-number</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>create</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>create-build-meta-data</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>create-metadata</goal>
+								</goals>
+								<configuration>
+									<outputName>
+										build/${project.groupId}:${project.artifactId}/build.properties
+									</outputName>
+									<properties>
+										<branch>${scmBranch}</branch>
+										<time>${buildDateTime}</time>
+										<artifact>${project.groupId}:${project.artifactId}</artifact>
+									</properties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
