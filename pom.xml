@@ -12,7 +12,7 @@
 
 	<groupId>com.mercateo.oss.parent</groupId>
 	<artifactId>oss-parent-pom</artifactId>
-	<version>0.0.1</version>
+	<version>0.9.0</version>
 	<packaging>pom</packaging>
 
 	<organization>
@@ -61,6 +61,27 @@
 							</configuration>
 						</execution>
 					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Implementation-Branch>${scmBranch}</Implementation-Branch>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eluder.coveralls</groupId>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>4.3.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -137,52 +158,9 @@
 							<execution>
 								<id>attach-sources</id>
 								<goals>
-									<goal>jar</goal>
+									<goal>jar-no-fork</goal>
 								</goals>
 								<phase>package</phase>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>buildnumber-maven-plugin</artifactId>
-						<version>1.4</version>
-						<configuration>
-							<doCheck>false</doCheck>
-							<doUpdate>false</doUpdate>
-							<addOutputDirectoryToResources>true</addOutputDirectoryToResources>
-							<format>{0,date,yyyy-MM-dd HH:mm:ss Z}</format>
-							<items>
-								<item>timestamp</item>
-							</items>
-							<buildNumberPropertyName>buildDateTime</buildNumberPropertyName>
-							<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
-							<revisionOnScmFailure>0</revisionOnScmFailure>
-						</configuration>
-						<executions>
-							<execution>
-								<id>create-build-number</id>
-								<phase>validate</phase>
-								<goals>
-									<goal>create</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>create-build-meta-data</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>create-metadata</goal>
-								</goals>
-								<configuration>
-									<outputName>
-										build/${project.groupId}:${project.artifactId}/build.properties
-									</outputName>
-									<properties>
-										<branch>${scmBranch}</branch>
-										<time>${buildDateTime}</time>
-										<artifact>${project.groupId}:${project.artifactId}</artifact>
-									</properties>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -331,6 +309,79 @@
 							<failOnError>true</failOnError>
 							<failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>oss-jacoco</id>
+
+			<activation>
+				<file>
+					<missing>.no-jacoco</missing>
+				</file>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.1</version>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<excludes>
+								<!-- Spring specific classes -->
+								<exclude>**/*Configuration.*</exclude>
+								<exclude>**/*Application.*</exclude>
+								<!-- Exceptions -->
+								<exclude>**/*Exception.*</exclude>
+								<!-- proto-generated classes -->
+								<exclude>**/gen/*</exclude>
+								<exclude>**/generated/*</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>oss-formatter</id>
+
+			<activation>
+				<file>
+					<exists>src/eclipse/config/eclipse_code_formatter.xml</exists>
+				</file>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>net.revelc.code.formatter</groupId>
+						<artifactId>formatter-maven-plugin</artifactId>
+						<version>2.7.3</version>
+
+						<configuration>
+							<configFile>${repository.root}/src/eclipse/config/eclipse_code_formatter.xml</configFile>
+						</configuration>
+						<executions>
+							<execution>
+								<id>formatting</id>
+								<goals>
+									<goal>format</goal>
+								</goals>
+								<phase>process-sources</phase>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
