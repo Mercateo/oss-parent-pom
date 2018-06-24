@@ -6,11 +6,11 @@ This POM provides some reasonable default plugin configurations. In order to dis
 To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 
 ```
-	<parent>
-		<groupId>com.mercateo.oss</groupId>
-		<artifactId>oss-parent-pom</artifactId>
-		<version>1.0.0</version> <!-- or the current version -->
-	</parent>
+<parent>
+	<groupId>com.mercateo.oss</groupId>
+	<artifactId>oss-parent-pom</artifactId>
+	<version>1.0.0</version> <!-- or the current version -->
+</parent>
 
 ```
 ---
