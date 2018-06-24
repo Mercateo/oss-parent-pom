@@ -13,3 +13,11 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 	</parent>
 
 ```
+---
+
+Changelog:
+
+1.0.0:	
+* groupId has changed from ```com.mercateo.oss.parent``` to ```com.mercateo.oss```
+* owasp plugin dependency upgraded to 3.2.1
+
