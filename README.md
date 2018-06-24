@@ -11,11 +11,10 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 	<artifactId>oss-parent-pom</artifactId>
 	<version>1.0.0</version> <!-- or the current version -->
 </parent>
-
 ```
 ---
 
-Changelog:
+#### Changelog:
 
 1.0.0:	
 * groupId has changed from ```com.mercateo.oss.parent``` to ```com.mercateo.oss```
