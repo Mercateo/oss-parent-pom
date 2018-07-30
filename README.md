@@ -16,6 +16,9 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 
 #### Changelog:
 
+1.0.2: 
+* updated owasp dependency to 3.3.0
+
 1.0.1: 
 * owasp plugin now skips scanning provided/runtime/test/system-scoped artifacts
 
