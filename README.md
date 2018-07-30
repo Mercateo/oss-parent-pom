@@ -9,7 +9,7 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 <parent>
 	<groupId>com.mercateo.oss</groupId>
 	<artifactId>oss-parent-pom</artifactId>
-	<version>1.0.1</version> <!-- or the current version -->
+	<version>1.0.2</version> <!-- or the current version -->
 </parent>
 ```
 ---
