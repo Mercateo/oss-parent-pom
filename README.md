@@ -9,13 +9,15 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 <parent>
 	<groupId>com.mercateo.oss</groupId>
 	<artifactId>oss-parent-pom</artifactId>
-	<version>1.0.0</version> <!-- or the current version -->
+	<version>1.0.1</version> <!-- or the current version -->
 </parent>
 ```
 ---
 
 #### Changelog:
 
+1.0.1: 
+* owasp plugin now skips scanning provided/runtime/test/system-scoped artifacts
 1.0.0:	
 * groupId has changed from ```com.mercateo.oss.parent``` to ```com.mercateo.oss```
 * owasp plugin dependency upgraded to 3.2.1
