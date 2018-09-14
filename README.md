@@ -9,12 +9,16 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 <parent>
 	<groupId>com.mercateo.oss</groupId>
 	<artifactId>oss-parent-pom</artifactId>
-	<version>1.0.2</version> <!-- or the current version -->
+	<version>1.0.3</version> <!-- or the current version -->
 </parent>
 ```
 ---
 
 #### Changelog:
+
+1.0.3:
+* updated JaCoCo dependency to 0.8.2
+* make maven release plugin usable
 
 1.0.2: 
 * updated owasp dependency to 3.3.0
@@ -26,3 +30,13 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 * groupId has changed from ```com.mercateo.oss.parent``` to ```com.mercateo.oss```
 * owasp plugin dependency upgraded to 3.2.1
 
+---
+
+#### Release
+
+perform the following commands:
+
+```
+mvn release:prepare
+mvn release:perform -Pss.release-sign-artifacts
+```
