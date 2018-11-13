@@ -16,6 +16,9 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 
 #### Changelog:
 
+1.0.5:
+* added impsort plugin to sort imports regardless of IDE configuration
+
 1.0.3:
 * updated JaCoCo dependency to 0.8.2
 * make maven release plugin usable
@@ -38,5 +41,5 @@ perform the following commands:
 
 ```
 mvn release:prepare
-mvn release:perform -Pss.release-sign-artifacts
+mvn release:perform -Poss.release-sign-artifacts
 ```
