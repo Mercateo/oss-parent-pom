@@ -18,6 +18,7 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 
 1.0.5:
 * added impsort plugin to sort imports regardless of IDE configuration
+* configured licens plugin to use /* instead of javadoc style comments for java & kotlin
 
 1.0.3:
 * updated JaCoCo dependency to 0.8.2
