@@ -239,10 +239,10 @@
 							</properties>
 							<includes>
 								<include>
-									**/src/main/**/*.java
+									**/src/**/*.java
 								</include>
 								<include>
-									**/src/main/**/*.kt
+									**/src/**/*.kt
 								</include>
 							</includes>
 							<mapping>
