@@ -16,6 +16,12 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 
 #### Changelog:
 
+1.0.7: 
+* added -Dossrh to release plugin configuration
+
+1.0.6:
+* added src/* to license plugin, so that tests also contain a license header
+
 1.0.5:
 * added impsort plugin to sort imports regardless of IDE configuration
 * configured license plugin to use /* instead of javadoc style comments for java & kotlin
