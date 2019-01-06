@@ -10,7 +10,7 @@
 
 	<groupId>com.mercateo.oss</groupId>
 	<artifactId>oss-parent-pom</artifactId>
-	<version>1.0.7-SNAPSHOT</version>
+	<version>1.0.7</version>
 	<packaging>pom</packaging>
 
 	<organization>
@@ -37,7 +37,8 @@
 		<connection>scm:git:git@github.com:Mercateo/oss-parent-pom.git</connection>
 		<developerConnection>scm:git:git@github.com:Mercateo/oss-parent-pom.git</developerConnection>
 		<url>https://github.com/Mercateo/oss-parent-pom.git</url>
-	</scm>
+	  <tag>oss-parent-pom-1.0.7</tag>
+  </scm>
 
 	<properties>
 		<!-- sane default -->
