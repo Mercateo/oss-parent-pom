@@ -9,12 +9,15 @@ To use this in Mercateo-OSS projects define a parent in your ```pom.xml```
 <parent>
 	<groupId>com.mercateo.oss</groupId>
 	<artifactId>oss-parent-pom</artifactId>
-	<version>1.0.3</version> <!-- or the current version -->
+	<version>1.0.9</version> <!-- or the current version -->
 </parent>
 ```
 ---
 
 #### Changelog:
+
+1.0.9:
+* updated dependencies and plugins
 
 1.0.7: 
 * added -Dossrh to release plugin configuration
