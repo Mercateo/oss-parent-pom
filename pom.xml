@@ -37,13 +37,31 @@
 		<connection>scm:git:git@github.com:Mercateo/oss-parent-pom.git</connection>
 		<developerConnection>scm:git:git@github.com:Mercateo/oss-parent-pom.git</developerConnection>
 		<url>https://github.com/Mercateo/oss-parent-pom.git</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+  	</scm>
 
 	<properties>
 		<!-- sane default -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- plugin versions -->
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+		<maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.1.0</maven-source-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
+
+		<impsort-maven-plugin.version>1.2.0</impsort-maven-plugin.version>
+		<formatter-maven-plugin.version>2.9.0</formatter-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+		<dependency-check-maven.version>4.0.2</dependency-check-maven.version>
+		<license-maven-plugin.version>3.0</license-maven-plugin.version>
+		<jersey-client.version>1.18.6</jersey-client.version>
+		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+		<coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+		<jaxb-api.version>2.3.1</jaxb-api.version>
+		<directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
 	</properties>
 
 	<build>
@@ -51,6 +69,7 @@
 			<plugin>
 				<groupId>org.commonjava.maven.plugins</groupId>
 				<artifactId>directory-maven-plugin</artifactId>
+				<version>${directory-maven-plugin.version}</version>
 			</plugin>
 		</plugins>
 
@@ -58,16 +77,21 @@
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5.3</version>
+					<version>${maven-release-plugin.version}</version>
 					<configuration>
-                    				<arguments>-Dossrh</arguments>
-                			</configuration>
+                    	<arguments>-Dossrh</arguments>
+                	</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.commonjava.maven.plugins</groupId>
 					<artifactId>directory-maven-plugin</artifactId>
-					<version>0.3.1</version>
+					<version>${directory-maven-plugin.version}</version>
 					<executions>
 						<execution>
 							<id>directories</id>
@@ -84,7 +108,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
+					<version>${maven-jar-plugin.version}</version>
 					<configuration>
 						<archive>
 							<manifest>
@@ -100,11 +124,34 @@
 				<plugin>
 					<groupId>org.eluder.coveralls</groupId>
 					<artifactId>coveralls-maven-plugin</artifactId>
-					<version>4.3.0</version>
+					<version>${coveralls-maven-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>javax.xml.bind</groupId>
+							<artifactId>jaxb-api</artifactId>
+							<version>${jaxb-api.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
+
 	<profiles>
 		<profile>
 			<id>oss.release-sign-artifacts</id>
@@ -131,7 +178,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
+						<version>${maven-gpg-plugin.version}</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -145,13 +192,20 @@
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.8</version>
+						<version>${nexus-staging-maven-plugin.version}</version>
 						<extensions>true</extensions>
 						<configuration>
 							<serverId>ossrh</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>com.sun.jersey</groupId>
+								<artifactId>jersey-client</artifactId>
+								<version>${jersey-client.version}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
@@ -172,7 +226,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>3.0.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -230,7 +283,7 @@
 					<plugin>
 						<groupId>com.mycila</groupId>
 						<artifactId>license-maven-plugin</artifactId>
-						<version>3.0</version>
+						<version>${license-maven-plugin.version}</version>
 
 						<configuration>
 							<concurrencyFactor>4</concurrencyFactor>
@@ -284,7 +337,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.2</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
@@ -292,7 +344,9 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-									<additionalparam>-Xdoclint:none</additionalparam>
+									<additionalOptions>
+										<additionalOption>-Xdoclint:none</additionalOption>
+									</additionalOptions>
 								</configuration>
 								<phase>package</phase>
 							</execution>
@@ -317,7 +371,7 @@
 					<plugin>
 						<groupId>org.owasp</groupId>
 						<artifactId>dependency-check-maven</artifactId>
-						<version>3.3.0</version>
+						<version>${dependency-check-maven.version}</version>
 
 						<executions>
 							<execution>
@@ -354,7 +408,7 @@
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.8.2</version>
+						<version>${jacoco-maven-plugin.version}</version>
 						<executions>
 							<execution>
 								<id>prepare-agent</id>
@@ -394,7 +448,7 @@
 					<plugin>
 						<groupId>net.revelc.code.formatter</groupId>
 						<artifactId>formatter-maven-plugin</artifactId>
-						<version>2.7.3</version>
+						<version>${formatter-maven-plugin.version}</version>
 
 						<configuration>
 							<configFile>${repository.root}/src/eclipse/config/eclipse_code_formatter.xml</configFile>
@@ -414,7 +468,7 @@
 		</profile>
 
 		<profile>
-		        <id>oss-import-sorter</id>
+		    <id>oss-import-sorter</id>
             
 			<activation>
 				<file>
@@ -427,7 +481,7 @@
 					<plugin>
 						<groupId>net.revelc.code</groupId>
 						<artifactId>impsort-maven-plugin</artifactId>
-						<version>1.2.0</version>
+						<version>${impsort-maven-plugin.version}</version>
 						<configuration>
 							<groups>java.,javax.,org.,com.</groups>
 							<staticGroups>java,*</staticGroups>
